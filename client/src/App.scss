@@ -1,0 +1,11 @@
+@import './sass/variables';
+@import './sass/mixins';
+@import './sass/typography';
+@import './sass/utility';
+@import './sass/buttons';
+@import './sass/animations';
+
+body {
+  font-family: 'Cormorant Garamond', serif;
+  box-sizing: border-box;
+}

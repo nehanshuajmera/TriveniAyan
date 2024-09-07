@@ -1,5 +1,6 @@
-import './App.css';
+import './App.scss';
 import { Routes, Route} from 'react-router-dom';
+import { HomePage } from './pages/homepage/homepage.component';
 
 const App = () => {
   return (
@@ -7,10 +8,9 @@ const App = () => {
 
       <div className="pages">
         <Routes>
-          {/* <Route to='/' element={} /> */}
+          <Route path='/' element={<HomePage />} />
         </Routes>
       </div>
-      APP
     </div>
   )
 }
