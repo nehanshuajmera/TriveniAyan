@@ -1,11 +1,23 @@
-@import './sass/variables';
-@import './sass/mixins';
-@import './sass/typography';
-@import './sass/utility';
-@import './sass/buttons';
-@import './sass/animations';
+/* colors */
+:root {
+  --color-primary: #eb2464;
+  --color-primary-light: #ff3366;
+  --color-primary-dark: #ba265d;
+}
+
+@import "./sass/mixins";
+@import "./sass/typography";
+@import "./sass/utility";
+@import "./sass/buttons";
+@import "./sass/animations";
 
 body {
-  font-family: 'Cormorant Garamond', serif;
-  box-sizing: border-box;
+  font-family: 'calibri';
+  background-image: linear-gradient(
+    to right bottom,
+    var(--color-primary-light),
+    var(--color-primary-dark)
+  );
+  background-repeat: no-repeat;
+  height: 100vh;
 }
