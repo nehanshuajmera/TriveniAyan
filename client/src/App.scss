@@ -3,6 +3,16 @@
   --color-primary: #eb2464;
   --color-primary-light: #ff3366;
   --color-primary-dark: #ba265d;
+
+  --light-grey-1: #faf9f9;
+  --light-grey-2: #f4f2f2;
+  --light-grey-3: #f0eeee;
+  --light-grey-4: #ccc;
+
+  --dark-grey-1: #333;
+  --dark-grey-2: #555;
+  --dark-grey-3: #777;
+  --dark-grey-4: #999;
 }
 
 @import "./sass/mixins";
@@ -12,12 +22,15 @@
 @import "./sass/animations";
 
 body {
-  font-family: 'calibri';
+  font-family: 'calibri', sans-serif;
+  line-height: 1.2;
+  color: var(--dark-grey-1);
   background-image: linear-gradient(
     to right bottom,
     var(--color-primary-light),
     var(--color-primary-dark)
   );
   background-repeat: no-repeat;
-  height: 100vh;
+  background-size: cover;
+  min-height: 100vh;
 }
