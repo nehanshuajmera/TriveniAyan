@@ -9,11 +9,40 @@ const createToken = (id) => {
   });
 };
 
+/* Format Date Function */
+const formatDateTime = (date) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = `0${d.getMonth() + 1}`.slice(-2);
+  const day = `0${d.getDate()}`.slice(-2);
+  let hours = d.getHours();
+  const minutes = (`0${d.getMinutes()}`).slice(-2);
+  const seconds = (`0${d.getSeconds()}`).slice(-2);
+
+  /* Determine AM/PM suffix */
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  /* Convert hours to 12-hour format */
+  hours = hours % 12;
+  hours = hours ? hours : 12; /* the hour '0' should be '12' */
+
+  return `${hours}:${minutes}:${seconds} ${ampm} - ${day}/${month}/${year}`;
+};
+
 /* All Users Controller */
 export const allUsers = async () => {
   try {
-    const users = await User.find({}); // Fixed: fetch all users
-    return users;
+    const users = await User.find({});
+    return users.map((user) => ({
+      id: user._id,
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      address: user.address,
+      role: user.role,
+      createdAt: formatDateTime(user.createdAt),
+      updatedAt: formatDateTime(user.updatedAt),
+    }));
   } catch (err) {
     console.error(`Error fetching Users: ${err.message}`);
     throw new Error(`Error fetching Users: ${err}`);
@@ -29,7 +58,17 @@ export const userById = async (_, { id }) => {
       throw new Error("User not found");
     }
 
-    return user;
+    return {
+      id: user._id,
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      address: user.address,
+      role: user.role,
+      createdAt: formatDateTime(user.createdAt),
+      updatedAt: formatDateTime(user.updatedAt),
+    };
   } catch (err) {
     console.error(`Error fetching User by ID: ${err.message}`);
     throw new Error(`Error fetching User by ID: ${err}`);

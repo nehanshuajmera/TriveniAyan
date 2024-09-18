@@ -1,6 +1,6 @@
 export const userTypeDefs = `#graphql
   type User {
-    id: ID
+    id: ID!
     name: String!
     username: String!
     email: String!
@@ -14,6 +14,8 @@ export const userTypeDefs = `#graphql
     # reviews: [Review!]
     # resetPasswordToken: String
     # resetPasswordTokenExpiry: String
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Address {
