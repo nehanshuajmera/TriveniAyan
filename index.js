@@ -26,6 +26,7 @@ app.use(cors(corsOptions));
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req, res }) => ({ req, res }),
 });
 
 /* Starting Apollo Server */

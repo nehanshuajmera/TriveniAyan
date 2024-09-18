@@ -1,12 +1,12 @@
 export const userTypeDefs = `#graphql
   type User {
-    id: ID!
+    id: ID
     name: String!
     username: String!
     email: String!
     password: String!
     phoneNumber: String!
-    role: String!
+    role: String
     address: [Address!]
     # bookings: [Booking!]
     # payment: [Payment!]
@@ -14,8 +14,8 @@ export const userTypeDefs = `#graphql
     # reviews: [Review!]
     # resetPasswordToken: String
     # resetPasswordTokenExpiry: String
-    createdAt: String!
-    updatedAt: String!
+    # createdAt: String!
+    # updatedAt: String!
   }
 
   type Address {
@@ -64,7 +64,7 @@ export const userTypeDefs = `#graphql
     email: String!
     password: String!
     phoneNumber: String!
-    role: String!
+    role: String
   }
 
   input UpdateUserInput {
@@ -77,7 +77,6 @@ export const userTypeDefs = `#graphql
   }
 
   input UpdateAddressInput {
-    id: ID
     street: String
     city: String
     country: String

@@ -6,10 +6,10 @@ const schema = mongoose.Schema;
 
 const userSchema = new schema(
   {
-    id: {
+    _id: {
       type: String,
       required: true,
-      default: uuidv4(),
+      default: uuidv4,
     },
     name: {
       type: String,
@@ -32,7 +32,6 @@ const userSchema = new schema(
     password: {
       type: String,
       required: true,
-      minlength: 8,
     },
     address: {
       street: {
@@ -50,6 +49,10 @@ const userSchema = new schema(
       postalCode: {
         type: String,
         trim: true,
+        validate: {
+          validator: (postalCode) => validator.isPostalCode(postalCode, "any"), // Validate postal code for any locale
+          message: "Invalid Postal Code",
+        },
       },
     },
     phoneNumber: {
@@ -91,7 +94,7 @@ const userSchema = new schema(
 );
 
 /* Register User */
-userSchema.registerUser = async function ({
+userSchema.statics.registerUser = async function ({
   name,
   username,
   email,
@@ -148,7 +151,7 @@ userSchema.registerUser = async function ({
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  const user = this.create({
+  const user = await this.create({
     name,
     username,
     email,
@@ -160,7 +163,7 @@ userSchema.registerUser = async function ({
 };
 
 /* Login User */
-userSchema.loginUser = async function ({ usernameOrEmail, password }) {
+userSchema.statics.loginUser = async function ({ usernameOrEmail, password }) {
   if (!usernameOrEmail || !password) {
     throw new Error("Please provide all fields");
   }
