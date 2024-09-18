@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.model.js";
 
+/* ------------ Users Query ------------ */
 /* Create Token Function */
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -35,6 +36,7 @@ export const userById = async (_, { id }) => {
   }
 };
 
+/* ------------ User Mutations ------------ */
 /* User Registration Controller */
 export const registerUser = async (_, { input }, { res }) => {
   try {
@@ -52,10 +54,10 @@ export const registerUser = async (_, { input }, { res }) => {
     /* Set the cookie via context's response object */
     res.cookie("authToken", token, {
       httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000, // Expires in 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000 /* Expires in 7 days */,
     });
 
-    return { token, user };
+    return { token, username: user.username };
   } catch (err) {
     console.error(`Error registering User: ${err.message}`);
     throw new Error(`Error registering User: ${err.message}`);
@@ -68,15 +70,15 @@ export const loginUser = async (_, { input }, { res }) => {
     const { usernameOrEmail, password } = input;
     const user = await User.loginUser({ usernameOrEmail, password });
 
-    const token = createToken(user._id);
+    const token = createToken(user._id, "user");
 
     /* Set the cookie via context's response object */
     res.cookie("authToken", token, {
       httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000, // Expires in 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000 /* Expires in 7 days */,
     });
 
-    return { token, user };
+    return { token, username: user.username };
   } catch (err) {
     console.error(`Error logging in User: ${err.message}`);
     throw new Error(`Error logging in User: ${err}`);

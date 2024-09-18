@@ -14,8 +14,6 @@ export const userTypeDefs = `#graphql
     # reviews: [Review!]
     # resetPasswordToken: String
     # resetPasswordTokenExpiry: String
-    # createdAt: String!
-    # updatedAt: String!
   }
 
   type Address {
@@ -25,13 +23,11 @@ export const userTypeDefs = `#graphql
     country: String!
     postalCode: String!
     user: User!
-    createdAt: String!
-    updatedAt: String!
   }
 
   type AuthPayload {
     token: String!
-    user: User!
+    username: String!
   }
 
   type Query {
