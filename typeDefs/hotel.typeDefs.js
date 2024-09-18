@@ -8,8 +8,8 @@ export const hotelTypeDefs = `#graphql
     rating: Int!
     amenities: [String!]!
     images: [String!]
-    bookings: [Booking]
-    rooms: [Room!]
+    # bookings: [Booking]
+    # rooms: [Room!]
   }
 
   type Address {
@@ -35,6 +35,13 @@ export const hotelTypeDefs = `#graphql
     ): Hotel
   }
 
+  input AddressInput {
+    street: String!
+    city: String!
+    country: String!
+    postalCode: String!
+  }
+
   input createHotelInput {
     name: String!
     location: String!
@@ -42,14 +49,7 @@ export const hotelTypeDefs = `#graphql
     description: String!
     rating: Int!
     amenities: [String!]!
-    images: [String!]
-  }
-
-  input AddressInput {
-    street: String!
-    city: String!
-    country: String!
-    postalCode: String!
+    images: [String!]!
   }
 
   input updateHotelInput {

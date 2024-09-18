@@ -46,31 +46,31 @@ const hotelSchema = new schema(
           message: "Invalid Postal Code",
         },
       },
-      description: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      rating: {
-        type: Number,
-        min: 0,
-        max: 5,
-      },
-      amenities: [String],
-      images: [String],
-      bookings: [
-        {
-          type: schema.Types.ObjectId,
-          ref: "Booking",
-        },
-      ],
-      rooms: [
-        {
-          type: schema.Types.ObjectId,
-          ref: "Room",
-        },
-      ],
     },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    rating: {
+      type: Number,
+      min: 0,
+      max: 5,
+    },
+    amenities: [String],
+    images: [String],
+    bookings: [
+      {
+        type: schema.Types.ObjectId,
+        ref: "Booking",
+      },
+    ],
+    rooms: [
+      {
+        type: schema.Types.ObjectId,
+        ref: "Room",
+      },
+    ],
   },
   { timestamps: true }
 );
