@@ -1,4 +1,5 @@
 import { Hotel } from "../models/hotel.model.js";
+import { Room } from "../models/room.model.js";
 
 /* ------------ Hotel Query ------------ */
 // Fetch all hotels
@@ -109,5 +110,19 @@ export const updateAddress = async (_, { id, address }) => {
     return hotel;
   } catch (err) {
     throw new Error(`Error updating hotel address: ${err.message}`);
+  }
+};
+
+/* ------------ Related Resolver ------------ */
+// Fetch rooms by hotelId
+export const hotelRooms = async (parent) => {
+  try {
+    const rooms = await Room.find({ hotelId: parent.id });
+    if (!rooms) {
+      throw new Error("Rooms not found");
+    }
+    return rooms;
+  } catch (err) {
+    throw new Error(`Error fetching rooms: ${err.message}`);
   }
 };

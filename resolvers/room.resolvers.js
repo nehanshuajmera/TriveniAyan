@@ -2,6 +2,7 @@ import {
   allRooms,
   createRoom,
   deleteRoom,
+  roomHotel,
   singleRoom,
   updateRoom,
 } from "../controllers/room.controller.js";
@@ -15,5 +16,8 @@ export const roomResolvers = {
     createRoom: createRoom,
     updateRoom: updateRoom,
     deleteRoom: deleteRoom,
+  },
+  Room: {
+    hotel: roomHotel,
   },
 };
