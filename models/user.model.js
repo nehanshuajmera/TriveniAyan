@@ -10,6 +10,7 @@ const userSchema = new schema(
       type: String,
       required: true,
       default: uuidv4,
+      immutable: true,
     },
     name: {
       type: String,

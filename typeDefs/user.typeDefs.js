@@ -7,7 +7,7 @@ export const userTypeDefs = `#graphql
     password: String!
     phoneNumber: String!
     role: String
-    address: [Address!]
+    address: Address!
     # bookings: [Booking!]
     # payment: [Payment!]
     # notifications: [Notification!]
@@ -19,12 +19,10 @@ export const userTypeDefs = `#graphql
   }
 
   type Address {
-    id: ID!
     street: String!
     city: String!
     country: String!
     postalCode: String!
-    user: User!
   }
 
   type AuthPayload {
@@ -46,7 +44,7 @@ export const userTypeDefs = `#graphql
     ): User!
     updateUserAddress(
       id: ID!
-      address: [UpdateAddressInput!]
+      address: UpdateAddressInput!
     ): User!
     deleteUser(id: ID!): User!
   }
@@ -65,6 +63,13 @@ export const userTypeDefs = `#graphql
     role: String
   }
 
+  input AddressInput {
+    street: String!
+    city: String!
+    country: String!
+    postalCode: String!
+  }
+
   input UpdateUserInput {
     name: String
     username: String
@@ -72,6 +77,7 @@ export const userTypeDefs = `#graphql
     password: String
     phoneNumber: String
     role: String
+    address: AddressInput!
   }
 
   input UpdateAddressInput {
