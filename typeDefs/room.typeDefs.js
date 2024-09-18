@@ -1,18 +1,19 @@
 export const roomTypeDefs = `#graphql
   type Room {
     id: ID!
-    hotel: Hotel!
     description: String!
     roomType: String!
     price: Int!
     capacity: Int!
     amenities: [String!]!
     images: [String!]
-    availability: [Availability!]
+    availability: [Availability!]!
+    hotel: Hotel!
   }
 
   type Availability {
-    date: String!
+    startDate: String!
+    endDate: String!
     isAvailable: Boolean!
   }
 
@@ -28,18 +29,19 @@ export const roomTypeDefs = `#graphql
   }
 
   input createRoomInput {
-    hotel: ID!
+    hotelId: ID!
     description: String!
     roomType: String!
     price: Int!
     capacity: Int!
     amenities: [String!]!
-    images: [String!]
-    availability: [AvailabilityInput!]
+    images: [String!]!
+    availability: [AvailabilityInput!]!
   }
 
   input AvailabilityInput {
-    date: String!
+    startDate: String!
+    endDate: String!
     isAvailable: Boolean!
   }
 
@@ -52,4 +54,4 @@ export const roomTypeDefs = `#graphql
     images: [String!]
     availability: [AvailabilityInput!]
   }
-`
+`;

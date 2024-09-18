@@ -9,7 +9,7 @@ export const hotelTypeDefs = `#graphql
     amenities: [String!]!
     images: [String!]
     # bookings: [Booking]
-    # rooms: [Room!]
+    rooms: [Room!]
   }
 
   type Address {

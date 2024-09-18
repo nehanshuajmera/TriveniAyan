@@ -11,8 +11,8 @@ const roomSchema = new schema(
       immutable: true,
       required: true,
     },
-    hotel: {
-      type: Schema.Types.ObjectId,
+    hotelId: {
+      type: String,
       required: true,
       ref: "Hotel",
     },
@@ -25,7 +25,6 @@ const roomSchema = new schema(
       type: String,
       required: true,
       trim: true,
-      // enum: ["Single", "Double", "Triple", "Quad", "Queen", "King"],
     },
     price: {
       type: Number,
@@ -39,7 +38,11 @@ const roomSchema = new schema(
     images: [String],
     availability: [
       {
-        date: {
+        startDate: {
+          type: Date,
+          required: true,
+        },
+        endDate: {
           type: Date,
           required: true,
         },
