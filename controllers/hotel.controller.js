@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Hotel } from "../models/hotel.model.js";
 import { Room } from "../models/room.model.js";
 
@@ -15,6 +16,10 @@ export const allHotels = async () => {
 // Fetch a hotel by ID
 export const hotelById = async (_, { id }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid Hotel ID");
+    }
+
     const hotel = await Hotel.findById(id);
 
     if (!hotel) {
@@ -51,6 +56,10 @@ export const createHotel = async (_, { input }) => {
 // Update a hotel
 export const updateHotel = async (_, { id, input }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid hotel ID");
+    }
+
     const { name, location, address, description, rating, amenities, images } =
       input;
 
@@ -81,6 +90,10 @@ export const updateHotel = async (_, { id, input }) => {
 // Delete a hotel
 export const deleteHotel = async (_, { id }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid hotel ID");
+    }
+
     const hotel = await Hotel.findByIdAndDelete(id);
 
     if (!hotel) {
@@ -96,6 +109,10 @@ export const deleteHotel = async (_, { id }) => {
 // Update hotel address
 export const updateAddress = async (_, { id, address }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid Hotel ID");
+    }
+
     const { street, city, state, country, postalCode } = address;
     const hotel = await Hotel.findByIdAndUpdate(
       id,
@@ -117,6 +134,10 @@ export const updateAddress = async (_, { id, address }) => {
 // Fetch rooms by hotelId
 export const hotelRooms = async (parent) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(parent.id)) {
+      throw new Error("Invalid hotel ID");
+    }
+
     const rooms = await Room.find({ hotelId: parent.id });
     if (!rooms) {
       throw new Error("Rooms not found");

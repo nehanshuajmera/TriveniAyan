@@ -12,6 +12,8 @@ export const bookingTypeDefs = `#graphql
     bookingStatus: String!
     totalAmount: Int!
     paymentStatus: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
   extend type Query {
@@ -51,7 +53,5 @@ export const bookingTypeDefs = `#graphql
     bookingStatus: String
     totalAmount: Int
     paymentStatus: String
-    createdAt: String!
-    updatedAt: String!
   }
 `

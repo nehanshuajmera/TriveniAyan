@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Room } from "../models/room.model.js";
 import { Hotel } from "../models/hotel.model.js";
 import { formatDateTime } from "../utils/formatDateTime.js";
@@ -32,6 +33,10 @@ export const allRooms = async () => {
 // Fetch a single room
 export const singleRoom = async (_, { id }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid room ID");
+    }
+
     const room = await Room.findById(id);
 
     if (!room) {
@@ -92,6 +97,9 @@ export const createRoom = async (_, { input }) => {
 // Update a room
 export const updateRoom = async (_, { id, input }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid room ID");
+    }
     const {
       description,
       roomType,
@@ -129,6 +137,9 @@ export const updateRoom = async (_, { id, input }) => {
 // Delete a room
 export const deleteRoom = async (_, { id }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid room ID");
+    }
     const room = await Room.findById(id);
 
     if (!room) {
@@ -146,6 +157,9 @@ export const deleteRoom = async (_, { id }) => {
 // Fetch the hotel that a room belongs to
 export const roomHotel = async (parent) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(parent.hotelId)) {
+      throw new Error("Invalid hotel ID");
+    }
     const hotel = await Hotel.findById(parent.hotelId);
     if (!hotel) {
       throw new Error("Hotel not found");

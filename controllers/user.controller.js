@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 import { User } from "../models/user.model.js";
 import { formatDateTime } from "../utils/formatDateTime.js";
 
-/* ------------ Users Query ------------ */
 /* Create Token Function */
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -10,6 +10,7 @@ const createToken = (id) => {
   });
 };
 
+/* ------------ Users Query ------------ */
 /* All Users Controller */
 export const allUsers = async () => {
   try {
@@ -32,6 +33,10 @@ export const allUsers = async () => {
 /* User By ID Controller */
 export const userById = async (_, { id }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid User ID");
+    }
+
     const user = await User.findById(id);
 
     if (!user) {
@@ -102,6 +107,10 @@ export const loginUser = async (_, { input }, { res }) => {
 /* Update User Controller */
 export const updateUser = async (_, { id, user }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid User ID");
+    }
+
     const { name, email, password, phoneNumber } = user;
 
     /* Find the user in the database */
@@ -140,6 +149,10 @@ export const updateUser = async (_, { id, user }) => {
 /* Update User Address Controller */
 export const updateUserAddress = async (_, { id, address }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid User ID");
+    }
+
     const { street, city, state, country, postalCode } = address;
     const existingUser = await User.findById(id);
     if (!existingUser) {
@@ -169,6 +182,10 @@ export const updateUserAddress = async (_, { id, address }) => {
 /* Delete User Controller */
 export const deleteUser = async (_, { id }) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid User ID");
+    }
+
     const user = await User.findByIdAndDelete(id);
 
     if (!user) {
