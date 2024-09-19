@@ -1,26 +1,13 @@
 import mongoose from "mongoose";
-import { v4 as uuidv4 } from "uuid";
 import validator from "validator";
 import bcrypt from "bcrypt";
 const schema = mongoose.Schema;
 
 const userSchema = new schema(
   {
-    _id: {
-      type: String,
-      required: true,
-      default: uuidv4,
-      immutable: true,
-    },
     name: {
       type: String,
       required: true,
-      trim: true,
-    },
-    username: {
-      type: String,
-      required: true,
-      unique: true,
       trim: true,
     },
     email: {
@@ -29,6 +16,10 @@ const userSchema = new schema(
       unique: true,
       lowercase: true,
       trim: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
     },
     password: {
       type: String,
@@ -40,6 +31,10 @@ const userSchema = new schema(
         trim: true,
       },
       city: {
+        type: String,
+        trim: true,
+      },
+      state: {
         type: String,
         trim: true,
       },
@@ -55,10 +50,6 @@ const userSchema = new schema(
           message: "Invalid Postal Code",
         },
       },
-    },
-    phoneNumber: {
-      type: String,
-      required: true,
     },
     role: {
       type: String,
@@ -97,19 +88,12 @@ const userSchema = new schema(
 /* Register User */
 userSchema.statics.registerUser = async function ({
   name,
-  username,
   email,
   password,
   phoneNumber,
 }) {
-  if (!name || !username || !email || !password || !phoneNumber) {
+  if (!name || !email || !password || !phoneNumber) {
     throw new Error("Please provide all fields");
-  }
-
-  if (!validator.matches(username, "^[a-z0-9_.-]{8,}$")) {
-    throw new Error(
-      "Username is not valid. It must be at least 8 characters long and can contain lowercase letters, numbers, underscores, dots, and dashes."
-    );
   }
 
   if (!validator.isEmail(email)) {
@@ -135,13 +119,6 @@ userSchema.statics.registerUser = async function ({
     throw new Error("Invalid Phone Number!!");
   }
 
-  const usernameExists = await this.findOne({ username });
-  if (usernameExists) {
-    throw new Error(
-      "Username is already taken. Please choose a different username."
-    );
-  }
-
   const emailExists = await this.findOne({ email });
   if (emailExists) {
     throw new Error(
@@ -154,7 +131,6 @@ userSchema.statics.registerUser = async function ({
 
   const user = await this.create({
     name,
-    username,
     email,
     password: hashedPassword,
     phoneNumber,
@@ -164,14 +140,12 @@ userSchema.statics.registerUser = async function ({
 };
 
 /* Login User */
-userSchema.statics.loginUser = async function ({ usernameOrEmail, password }) {
-  if (!usernameOrEmail || !password) {
+userSchema.statics.loginUser = async function ({ email, password }) {
+  if (!email || !password) {
     throw new Error("Please provide all fields");
   }
 
-  const user = await this.findOne({
-    $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
-  });
+  const user = await this.findOne({ email });
 
   if (!user) {
     throw new Error("Invalid credentials");

@@ -35,7 +35,6 @@ export const allUsers = async () => {
     return users.map((user) => ({
       id: user._id,
       name: user.name,
-      username: user.username,
       email: user.email,
       phoneNumber: user.phoneNumber,
       address: user.address,
@@ -44,7 +43,6 @@ export const allUsers = async () => {
       updatedAt: formatDateTime(user.updatedAt),
     }));
   } catch (err) {
-    console.error(`Error fetching Users: ${err.message}`);
     throw new Error(`Error fetching Users: ${err}`);
   }
 };
@@ -61,7 +59,6 @@ export const userById = async (_, { id }) => {
     return {
       id: user._id,
       name: user.name,
-      username: user.username,
       email: user.email,
       phoneNumber: user.phoneNumber,
       address: user.address,
@@ -70,7 +67,6 @@ export const userById = async (_, { id }) => {
       updatedAt: formatDateTime(user.updatedAt),
     };
   } catch (err) {
-    console.error(`Error fetching User by ID: ${err.message}`);
     throw new Error(`Error fetching User by ID: ${err}`);
   }
 };
@@ -79,10 +75,9 @@ export const userById = async (_, { id }) => {
 /* User Registration Controller */
 export const registerUser = async (_, { input }, { res }) => {
   try {
-    const { name, username, email, password, phoneNumber } = input;
+    const { name, email, password, phoneNumber } = input;
     const user = await User.registerUser({
       name,
-      username,
       email,
       password,
       phoneNumber,
@@ -96,9 +91,8 @@ export const registerUser = async (_, { input }, { res }) => {
       maxAge: 7 * 24 * 60 * 60 * 1000 /* Expires in 7 days */,
     });
 
-    return { token, username: user.username };
+    return { token, userEmail: user.email };
   } catch (err) {
-    console.error(`Error registering User: ${err.message}`);
     throw new Error(`Error registering User: ${err.message}`);
   }
 };
@@ -106,8 +100,8 @@ export const registerUser = async (_, { input }, { res }) => {
 /* User Login Controller */
 export const loginUser = async (_, { input }, { res }) => {
   try {
-    const { usernameOrEmail, password } = input;
-    const user = await User.loginUser({ usernameOrEmail, password });
+    const { email, password } = input;
+    const user = await User.loginUser({ email, password });
 
     const token = createToken(user._id, "user");
 
@@ -117,9 +111,8 @@ export const loginUser = async (_, { input }, { res }) => {
       maxAge: 7 * 24 * 60 * 60 * 1000 /* Expires in 7 days */,
     });
 
-    return { token, username: user.username };
+    return { token, userEmail: user.email };
   } catch (err) {
-    console.error(`Error logging in User: ${err.message}`);
     throw new Error(`Error logging in User: ${err}`);
   }
 };
@@ -127,7 +120,7 @@ export const loginUser = async (_, { input }, { res }) => {
 /* Update User Controller */
 export const updateUser = async (_, { id, user }) => {
   try {
-    const { name, username, email, password, phoneNumber } = user;
+    const { name, email, password, phoneNumber } = user;
 
     /* Find the user in the database */
     const existingUser = await User.findById(id);
@@ -138,7 +131,6 @@ export const updateUser = async (_, { id, user }) => {
     /* Update the user object */
     const updateFields = {
       name: name || existingUser.name,
-      username: username || existingUser.username,
       email: email || existingUser.email,
       phoneNumber: phoneNumber || existingUser.phoneNumber,
     };
@@ -159,7 +151,6 @@ export const updateUser = async (_, { id, user }) => {
 
     return updatedUser;
   } catch (err) {
-    console.error(`Error updating User: ${err.message}`);
     throw new Error(`Error updating User: ${err}`);
   }
 };
@@ -167,7 +158,7 @@ export const updateUser = async (_, { id, user }) => {
 /* Update User Address Controller */
 export const updateUserAddress = async (_, { id, address }) => {
   try {
-    const { street, city, country, postalCode } = address;
+    const { street, city, state, country, postalCode } = address;
     const existingUser = await User.findById(id);
     if (!existingUser) {
       throw new Error("User not found");
@@ -176,6 +167,7 @@ export const updateUserAddress = async (_, { id, address }) => {
     existingUser.address = {
       street: street || existingUser.address.street,
       city: city || existingUser.address.city,
+      state: state || existingUser.address.state,
       country: country || existingUser.address.country,
       postalCode: postalCode || existingUser.address.postalCode,
     };
@@ -188,7 +180,6 @@ export const updateUserAddress = async (_, { id, address }) => {
 
     return updatedUser;
   } catch (err) {
-    console.error(`Error updating User Address: ${err.message}`);
     throw new Error(`Error updating User Address: ${err}`);
   }
 };
@@ -204,7 +195,6 @@ export const deleteUser = async (_, { id }) => {
 
     return user;
   } catch (err) {
-    console.error(`Error deleting User: ${err.message}`);
     throw new Error(`Error deleting User: ${err}`);
   }
 };

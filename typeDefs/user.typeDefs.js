@@ -2,7 +2,6 @@ export const userTypeDefs = `#graphql
   type User {
     id: ID!
     name: String!
-    username: String!
     email: String!
     password: String!
     phoneNumber: String!
@@ -21,13 +20,14 @@ export const userTypeDefs = `#graphql
   type Address {
     street: String!
     city: String!
+    state: String!
     country: String!
     postalCode: String!
   }
 
   type AuthPayload {
     token: String!
-    username: String!
+    userEmail: String!
   }
 
   type Query {
@@ -50,13 +50,12 @@ export const userTypeDefs = `#graphql
   }
 
   input LoginInput {
-    usernameOrEmail: String!
+    email: String!
     password: String!
   }
 
   input RegisterInput {
     name: String!
-    username: String!
     email: String!
     password: String!
     phoneNumber: String!
@@ -66,13 +65,13 @@ export const userTypeDefs = `#graphql
   input AddressInput {
     street: String!
     city: String!
+    state: String!
     country: String!
     postalCode: String!
   }
 
   input UpdateUserInput {
     name: String
-    username: String
     email: String
     password: String
     phoneNumber: String
@@ -83,6 +82,7 @@ export const userTypeDefs = `#graphql
   input UpdateAddressInput {
     street: String
     city: String
+    state: String
     country: String
     postalCode: String
   }

@@ -1,16 +1,9 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import { v4 as uuidv4 } from "uuid";
 const schema = mongoose.Schema;
 
 const hotelSchema = new schema(
   {
-    _id: {
-      type: String,
-      default: uuidv4,
-      immutable: true,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
@@ -28,6 +21,11 @@ const hotelSchema = new schema(
         trim: true,
       },
       city: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      state: {
         type: String,
         required: true,
         trim: true,

@@ -1,18 +1,10 @@
-import mongoose, { Schema } from "mongoose";
-import { v4 as uuidv4 } from "uuid";
-
+import mongoose from "mongoose";
 const schema = mongoose.Schema;
 
 const roomSchema = new schema(
   {
-    _id: {
-      type: String,
-      default: uuidv4,
-      immutable: true,
-      required: true,
-    },
     hotelId: {
-      type: String,
+      type: schema.Types.ObjectId,
       required: true,
       ref: "Hotel",
     },

@@ -15,6 +15,7 @@ export const hotelTypeDefs = `#graphql
   type Address {
     street: String!
     city: String!
+    state: String!
     country: String!
     postalCode: String!
   }
@@ -38,6 +39,7 @@ export const hotelTypeDefs = `#graphql
   input AddressInput {
     street: String!
     city: String!
+    state: String!
     country: String!
     postalCode: String!
   }
@@ -65,6 +67,7 @@ export const hotelTypeDefs = `#graphql
   input updateAddressInput {
     street: String
     city: String
+    state: String
     country: String
     postalCode: String
   }
