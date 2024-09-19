@@ -1,12 +1,29 @@
 import { Room } from "../models/room.model.js";
 import { Hotel } from "../models/hotel.model.js";
+import { formatDateTime } from "../utils/formatDateTime.js";
 
 /* ------------ Query resolvers ------------ */
 // Fetch all rooms
 export const allRooms = async () => {
   try {
     const rooms = await Room.find({});
-    return rooms;
+    return rooms.map((room) => ({
+      id: room._id,
+      hotelId: room.hotelId,
+      description: room.description,
+      roomType: room.roomType,
+      price: room.price,
+      capacity: room.capacity,
+      amenities: room.amenities,
+      images: room.images,
+      availability: room.availability.map((availability) => ({
+        startDate: formatDateTime(availability.startDate),
+        endDate: formatDateTime(availability.endDate),
+        isAvailable: availability.isAvailable,
+      })),
+      createdAt: room.createdAt,
+      updatedAt: room.updatedAt,
+    }));
   } catch (err) {
     throw new Error(`Error fetching rooms: ${err.message}`);
   }
@@ -20,7 +37,23 @@ export const singleRoom = async (_, { id }) => {
     if (!room) {
       throw new Error("Room not found");
     }
-    return room;
+    return {
+      id: room._id,
+      hotelId: room.hotelId,
+      description: room.description,
+      roomType: room.roomType,
+      price: room.price,
+      capacity: room.capacity,
+      amenities: room.amenities,
+      images: room.images,
+      availability: room.availability.map((availability) => ({
+        startDate: formatDateTime(availability.startDate),
+        endDate: formatDateTime(availability.endDate),
+        isAvailable: availability.isAvailable,
+      })),
+      createdAt: formatDateTime(room.createdAt),
+      updatedAt: formatDateTime(room.updatedAt),
+    };
   } catch (err) {
     throw new Error(`Error fetching room: ${err.message}`);
   }

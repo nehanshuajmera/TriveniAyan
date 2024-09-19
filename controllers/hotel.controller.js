@@ -96,10 +96,10 @@ export const deleteHotel = async (_, { id }) => {
 // Update hotel address
 export const updateAddress = async (_, { id, address }) => {
   try {
-    const { street, city, country, postalCode } = address;
+    const { street, city, state, country, postalCode } = address;
     const hotel = await Hotel.findByIdAndUpdate(
       id,
-      { address: { street, city, country, postalCode } },
+      { address: { street, city, state, country, postalCode } },
       { new: true }
     );
 

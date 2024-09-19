@@ -63,12 +63,12 @@ const hotelSchema = new schema(
         ref: "Booking",
       },
     ],
-    rooms: [
-      {
-        type: schema.Types.ObjectId,
-        ref: "Room",
-      },
-    ],
+    // rooms: [
+    //   {
+    //     type: schema.Types.ObjectId,
+    //     ref: "Room",
+    //   },
+    // ],
   },
   { timestamps: true }
 );

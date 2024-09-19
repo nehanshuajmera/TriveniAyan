@@ -4,28 +4,28 @@ const schema = mongoose.Schema;
 const bookingSchema = new schema(
   {
     userId: {
-      type: String,
+      type: schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
     hotelId: {
-      type: String,
+      type: schema.Types.ObjectId,
       ref: "Hotel",
     },
     flightId: {
-      type: String,
+      type: schema.Types.ObjectId,
       ref: "Flight",
     },
     tourId: {
-      type: String,
+      type: schema.Types.ObjectId,
       ref: "Tour",
     },
-    carRentalId: {
-      type: String,
-      ref: "CarRental",
+    busId: {
+      type: schema.Types.ObjectId,
+      ref: "Bus",
     },
     roomId: {
-      type: String,
+      type: schema.Types.ObjectId,
       ref: "Room",
     },
     bookingDate: {
@@ -36,7 +36,7 @@ const bookingSchema = new schema(
     bookingType: {
       type: String,
       required: true,
-      enum: ["hotel", "tour", "carRental", "room", "flight"],
+      enum: ["hotel", "tour", "bus", "room", "flight"],
     },
     bookingStatus: {
       type: String,

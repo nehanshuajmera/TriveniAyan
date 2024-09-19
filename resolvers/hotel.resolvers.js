@@ -3,6 +3,7 @@ import {
   createHotel,
   deleteHotel,
   hotelById,
+  hotelRooms,
   updateAddress,
   updateHotel,
 } from "../controllers/hotel.controller.js";
@@ -18,4 +19,7 @@ export const hotelResolvers = {
     deleteHotel: deleteHotel,
     updateAddress: updateAddress,
   },
+  Hotel: {
+    rooms: hotelRooms,
+  }
 };

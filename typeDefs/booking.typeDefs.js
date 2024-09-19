@@ -5,7 +5,7 @@ export const bookingTypeDefs = `#graphql
     hotel: Hotel!
     flight: Flight!
     tour: Tour!
-    carRental: CarRental!
+    bus: Bus!
     room: Room!
     bookingDate: String!
     bookingType: String!
@@ -30,7 +30,7 @@ export const bookingTypeDefs = `#graphql
     hotelId: ID
     flightId: ID
     tourId: ID
-    carRentalId: ID
+    busId: ID
     roomId: ID
     bookingDate: String!
     bookingType: String!
@@ -44,12 +44,14 @@ export const bookingTypeDefs = `#graphql
     hotelId: ID
     flightId: ID
     tourId: ID
-    carRentalId: ID
+    busId: ID
     roomId: ID
     bookingDate: String
     bookingType: String
     bookingStatus: String
     totalAmount: Int
     paymentStatus: String
+    createdAt: String!
+    updatedAt: String!
   }
 `

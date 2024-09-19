@@ -10,6 +10,8 @@ export const hotelTypeDefs = `#graphql
     images: [String!]
     # bookings: [Booking]
     rooms: [Room!]
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Address {

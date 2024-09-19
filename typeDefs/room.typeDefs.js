@@ -9,6 +9,8 @@ export const roomTypeDefs = `#graphql
     images: [String!]
     availability: [Availability!]!
     hotel: Hotel!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Availability {
