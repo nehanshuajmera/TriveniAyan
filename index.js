@@ -44,7 +44,7 @@ const connect = async () => {
     console.log(`Connected to MongoDB`);
 
     app.listen(PORT, () => {
-      console.log(`App is running on http://localhost:${PORT}`);
+      console.log(`App is running on http://localhost:${PORT}/graphql`);
     });
   } catch (err) {
     console.error(`Error connecting to MongoDB: ${err}`);

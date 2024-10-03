@@ -60,15 +60,15 @@ const hotelSchema = new schema(
     bookings: [
       {
         type: schema.Types.ObjectId,
-        ref: "Booking",
+        ref: "RoomBooking",
       },
     ],
-    // rooms: [
-    //   {
-    //     type: schema.Types.ObjectId,
-    //     ref: "Room",
-    //   },
-    // ],
+    rooms: [
+      {
+        type: schema.Types.ObjectId,
+        ref: "Room",
+      },
+    ],
   },
   { timestamps: true }
 );
