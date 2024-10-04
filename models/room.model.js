@@ -28,22 +28,22 @@ const roomSchema = new schema(
     },
     amenities: [String],
     images: [String],
-    availability: [
-      {
-        startDate: {
-          type: Date,
-          required: true,
-        },
-        endDate: {
-          type: Date,
-          required: true,
-        },
-        isAvailable: {
-          type: Boolean,
-          default: true,
-        },
-      },
-    ],
+    // availability: [
+    //   {
+    //     startDate: {
+    //       type: Date,
+    //       required: true,
+    //     },
+    //     endDate: {
+    //       type: Date,
+    //       required: true,
+    //     },
+    //     isAvailable: {
+    //       type: Boolean,
+    //       default: true,
+    //     },
+    //   },
+    // ],
   },
   { timestamps: true }
 );
